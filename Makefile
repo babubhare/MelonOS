@@ -1,5 +1,11 @@
-first:
-	nasm -f bin ./1/first.asm -o ./bin/boot.bin
+ASM_FILENAME=char.asm 
+BOOT_FILENAME=char.bin 
 
-run:
-	qemu-system-x86_64 -hda ./bin/boot.bin -nographic 
+all: clean 
+	nasm -f bin ./$(ASM_FILENAME) -o ./$(BOOT_FILENAME) 
+
+clean: 
+	rm -f ./$(BOOT_FILENAME) 
+ 
+run: all 
+    qemu-system-x86_64 -hda ./$(BOOT_FILENAME) -nographic  
