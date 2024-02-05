@@ -93,7 +93,10 @@ $(ASM_FILENAME_BOOT_INTERRUPT): clean_boot_interrupt
 
 run_boot_interrupt: $(ASM_FILENAME_BOOT_INTERRUPT)
 	qemu-system-x86_64 -hda ./$(BOOT_FILENAME_BOOT_INTERRUPT) -nographic 
- 
+
+run_boot_interrupt_mac: $(ASM_FILENAME_BOOT_INTERRUPT)
+	qemu-system-x86_64 -hda ./$(BOOT_FILENAME_BOOT_INTERRUPT) 
+
 clean_boot_interrupt: 
 	rm -f ./$(BOOT_FILENAME_BOOT_INTERRUPT) 
 
