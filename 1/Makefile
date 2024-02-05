@@ -48,3 +48,43 @@ clean_boot_segment:
 
 
 ############################################################################################################
+
+#make boot_bios33.asm
+#make run_boot_bios33
+#make clean_boot_bios33
+
+ASM_FILENAME_BOOT_BIOS33=boot_bios33.asm
+BOOT_FILENAME_BOOT_BIOS33=boot_bios33.bin
+
+$(ASM_FILENAME_BOOT_BIOS33): clean_boot_bios33
+	nasm -f bin ./$(ASM_FILENAME_BOOT_BIOS33) -o ./$(BOOT_FILENAME_BOOT_BIOS33)
+
+run_boot_bios33: $(ASM_FILENAME_BOOT_BIOS33)
+	qemu-system-x86_64 -hda ./$(BOOT_FILENAME_BOOT_BIOS33) -nographic 
+ 
+clean_boot_bios33: 
+	rm -f ./$(BOOT_FILENAME_BOOT_BIOS33) 
+
+
+############################################################################################################
+
+############################################################################################################
+
+#make boot_interrupt.asm
+#make run_boot_interrupt
+#make clean_boot_interrupt
+
+ASM_FILENAME_BOOT_INTERRUPT=boot_interrupt.asm
+BOOT_FILENAME_BOOT_INTERRUPT=boot_interrupt.bin
+
+$(ASM_FILENAME_BOOT_INTERRUPT): clean_boot_interrupt
+	nasm -f bin ./$(ASM_FILENAME_BOOT_INTERRUPT) -o ./$(BOOT_FILENAME_BOOT_INTERRUPT)
+
+run_boot_interrupt: $(ASM_FILENAME_BOOT_INTERRUPT)
+	qemu-system-x86_64 -hda ./$(BOOT_FILENAME_BOOT_INTERRUPT) -nographic 
+ 
+clean_boot_interrupt: 
+	rm -f ./$(BOOT_FILENAME_BOOT_INTERRUPT) 
+
+
+############################################################################################################
