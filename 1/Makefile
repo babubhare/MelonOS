@@ -14,6 +14,8 @@ run_boot_char: $(ASM_FILENAME_BOOT_CHAR)
 clean_boot_char: 
 	rm -f ./$(BOOT_FILENAME_BOOT_CHAR) 
 
+run_boot_char_mac: $(ASM_FILENAME_BOOT_CHAR)
+	qemu-system-x86_64 -hda ./$(BOOT_FILENAME_BOOT_CHAR) 
 
 ############################################################################################################
 
@@ -25,7 +27,10 @@ $(ASM_FILENAME_BOOT_STRING): clean_boot_string
 
 run_boot_string: $(ASM_FILENAME_BOOT_STRING)
 	qemu-system-x86_64 -hda ./$(BOOT_FILENAME_BOOT_STRING) -nographic 
- 
+
+run_boot_string_mac: $(ASM_FILENAME_BOOT_STRING)
+	qemu-system-x86_64 -hda ./$(BOOT_FILENAME_BOOT_STRING) 
+
 clean_boot_string: 
 	rm -f ./$(BOOT_FILENAME_BOOT_STRING) 
 
@@ -42,7 +47,10 @@ $(ASM_FILENAME_BOOT_SEGMENT): clean_boot_segment
 
 run_boot_segment: $(ASM_FILENAME_BOOT_SEGMENT)
 	qemu-system-x86_64 -hda ./$(BOOT_FILENAME_BOOT_SEGMENT) -nographic 
- 
+
+run_boot_segment_mac: $(ASM_FILENAME_BOOT_SEGMENT)
+	qemu-system-x86_64 -hda ./$(BOOT_FILENAME_BOOT_SEGMENT)
+
 clean_boot_segment: 
 	rm -f ./$(BOOT_FILENAME_BOOT_SEGMENT) 
 
@@ -61,7 +69,10 @@ $(ASM_FILENAME_BOOT_BIOS33): clean_boot_bios33
 
 run_boot_bios33: $(ASM_FILENAME_BOOT_BIOS33)
 	qemu-system-x86_64 -hda ./$(BOOT_FILENAME_BOOT_BIOS33) -nographic 
- 
+
+run_boot_bios33_mac: $(ASM_FILENAME_BOOT_BIOS33)
+	qemu-system-x86_64 -hda ./$(BOOT_FILENAME_BOOT_BIOS33)
+
 clean_boot_bios33: 
 	rm -f ./$(BOOT_FILENAME_BOOT_BIOS33) 
 
