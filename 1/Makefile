@@ -1,3 +1,7 @@
+nope:
+
+############################################################################################################
+
 ASM_FILENAME_BOOT_CHAR=boot_char.asm
 BOOT_FILENAME_BOOT_CHAR=boot_char.bin
 
@@ -9,7 +13,10 @@ run_boot_char: $(ASM_FILENAME_BOOT_CHAR)
  
 clean_boot_char: 
 	rm -f ./$(BOOT_FILENAME_BOOT_CHAR) 
- 
+
+
+############################################################################################################
+
 ASM_FILENAME_BOOT_STRING=boot_string.asm
 BOOT_FILENAME_BOOT_STRING=boot_string.bin
 
@@ -22,6 +29,11 @@ run_boot_string: $(ASM_FILENAME_BOOT_STRING)
 clean_boot_string: 
 	rm -f ./$(BOOT_FILENAME_BOOT_STRING) 
 
+############################################################################################################
+
+#make boot_segment.asm
+#make clean_boot_segment
+
 ASM_FILENAME_BOOT_SEGMENT=boot_segment.asm
 BOOT_FILENAME_BOOT_SEGMENT=boot_segment.bin
 
@@ -33,3 +45,6 @@ run_boot_segment: $(ASM_FILENAME_BOOT_SEGMENT)
  
 clean_boot_segment: 
 	rm -f ./$(BOOT_FILENAME_BOOT_SEGMENT) 
+
+
+############################################################################################################
