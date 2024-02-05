@@ -21,3 +21,15 @@ run_boot_string: $(ASM_FILENAME_BOOT_STRING)
  
 clean_boot_string: 
 	rm -f ./$(BOOT_FILENAME_BOOT_STRING) 
+
+ASM_FILENAME_BOOT_SEGMENT=boot_segment.asm
+BOOT_FILENAME_BOOT_SEGMENT=boot_segment.bin
+
+$(ASM_FILENAME_BOOT_SEGMENT): clean_boot_segment
+	nasm -f bin ./$(ASM_FILENAME_BOOT_SEGMENT) -o ./$(BOOT_FILENAME_BOOT_SEGMENT)
+
+run_boot_segment: $(ASM_FILENAME_BOOT_SEGMENT)
+	qemu-system-x86_64 -hda ./$(BOOT_FILENAME_BOOT_SEGMENT) -nographic 
+ 
+clean_boot_segment: 
+	rm -f ./$(BOOT_FILENAME_BOOT_SEGMENT) 
