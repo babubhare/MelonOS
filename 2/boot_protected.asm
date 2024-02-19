@@ -20,6 +20,11 @@ step2:
     mov es, ax
     mov ss, ax
     mov sp, 0x7c00
+
+    mov ax, gdt_code
+    mov bx, gdt_start
+    mov bx, gdt_data
+    
     sti ; Enables Interrupts
 
 .load_protected:

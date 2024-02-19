@@ -17,4 +17,9 @@ clean_boot_protected:
 run_boot_protected_mac: $(ASM_FILENAME_BOOT_PROTECTED)
 	qemu-system-x86_64 -hda ./$(BOOT_FILENAME_BOOT_PROTECTED) 
 
+windows:
+	qemu-system-x86_64 -hda ./$(BOOT_FILENAME_BOOT_PROTECTED) -S -gdb tcp:127.0.0.1:1234
+	## qemu-system-x86_64 -hda ./boot_protected.bin -S -gdb tcp:127.0.0.1:1234
+	# gdb
+	# target remote tcp:127.0.0.1:1234
 ############################################################################################################
