@@ -20,10 +20,13 @@ add-symbol-file ./build/kernelfull.o 0x0100000
 https://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_toc.html#TOC56
 
 gdb:
+
+break _start
 info registers
 frame
 c
 n
 cntrl c
 disas 0x0100000, 0x0100fff
+layout asm
 **************************************************************************************
