@@ -7,10 +7,13 @@ target remote | qemu-system-x86_64 -hda ./bin/os.bin -S -gdb tcp:127.0.0.1:1234 
 qemu-system-x86_64.exe -hda ./bin/os.bin -S
 
 
+git reset --hard <commitID>
+
 For Windows system
 
 In one terminal of mingw:
 qemu-system-x86_64 -hda ./bin/os.bin -S -gdb tcp:127.0.0.1:1234
+
 
 **************************************************************************************
 In another terminal of mingw:
