@@ -20,7 +20,7 @@ In another terminal of mingw:
 gdb
 target remote tcp:127.0.0.1:1234
 add-symbol-file ./build/kernelfull.o 0x0100000
-https://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_toc.html#TOC56
+https://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_toc.html#TOC56 
 
 gdb:
 
