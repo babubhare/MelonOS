@@ -59,3 +59,25 @@ export PATH="$PREFIX/bin:$PATH"
 git config --global user.name "Babu Chandranna"
 git config --global user.email "babubhare@gmail.com"
 **************************************************************************************
+
+**************************************************************************************
+vscode settings
+
+{
+  "terminal.integrated.profiles.windows":
+  {
+      "MINGW64":
+      {
+          "path": "C:/Ruby32-x64/msys64/usr/bin/bash.exe",
+          "env":
+          {
+              "CHERE_INVOKING": "1",
+              "MSYSTEM": "MINGW64",
+              // THE FOLLOWING IS A HACK TO PLACE THE MSYS PATHS BEFORE THE WINDOWS ONES
+              "PATH": "/usr/bin;/mingw64/bin;${env:PATH}"
+          },
+          "color": "terminal.ansiMagenta"
+      }
+  },
+}
+**************************************************************************************
