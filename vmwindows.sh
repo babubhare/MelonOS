@@ -4,6 +4,8 @@ target remote | qemu-system-x86_64 -hda ./bin/os.bin -S -gdb stdio -nographic
 
 target remote | qemu-system-x86_64 -hda ./bin/os.bin -S -gdb tcp:127.0.0.1:1234 stdio -s
 
+target remote | qemu-system-x86_64 -hda ./bin/os.bin -S -gdb 
+
 qemu-system-x86_64.exe -hda ./bin/os.bin -S
 
 
