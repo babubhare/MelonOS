@@ -1,0 +1,45 @@
+*********************************************************************************************
+GCC CROSS COMPILER ON WINDOWS - MSYS2 (mingw64)
+*********************************************************************************************
+
+1. Install MSYS2 (https://www.msys2.org/)
+2. Open the mingw64.exe (C:\msys64)
+3. Update Packages (pacman -Syu)
+4. Install gcc (pacman -S gcc)
+    a. https://packages.msys2.org/package/gcc?repo=msys&variant=x86_64
+5. Install git (pacman -S git)
+    a. pacman -S git
+6. Create src folder in $HOME directory. All commands to be executed within src folder
+7. Install gdb (Optional)
+    a. https://ftp.gnu.org/gnu/gdb/
+    b. Download 14.2
+    c. curl "https://ftp.gnu.org/gnu/gdb/gdb-14.2.tar.gz" --output gdb-14.2.tar.gz
+    d. tar -xvzf gdb-14.2.tar.gz
+8. Install binutils
+    a. https://ftp.gnu.org/gnu/binutils/
+    b. Download 2.42
+    c. curl "https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.gz" --output binutils-2.42.tar.gz
+    d. tar -xvzf binutils-2.42.tar.gz
+9. Download gcc source code
+    a. git clone git://gcc.gnu.org/git/gcc.git gcc-13.2 (takes long time)
+10. OSDEV Cross Compiler (https://wiki.osdev.org/GCC_Cross-Compiler)
+    1. pacman -S make
+    2. pacman -S bison
+    3. pacman -S makeflex
+    4. pacman -S mingw-w64-x86_64-gmp
+    5. pacman -S mpc-devel
+    6. pacman -S mpfr-devel
+    7. pacman -S texinfo
+    8. pacman -S isl-devel
+11. VARIABLES
+    export PREFIX="$HOME/opt/cross"
+    export TARGET=i686-elf
+    export PATH="$PREFIX/bin:$PATH"
+12. binutils
+    cd $HOME/src
+    mkdir build-binutils
+    cd build-binutils
+    ../binutils-2.42/configure --target=$TARGET --prefix="$PREFIX" --with-sysroot --disable-nls --disable-werror
+    make
+    make install
+13. 
