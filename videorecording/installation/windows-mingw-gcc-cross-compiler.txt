@@ -1,0 +1,121 @@
+Video Script:
+1. Why we need a cross Compiler
+2. What is Cygwin
+3. MSYS2 & mingw64
+
+
+*********************************************************************************************
+GCC CROSS COMPILER ON WINDOWS - MSYS2 (mingw64)
+*********************************************************************************************
+
+1. Install MSYS2 (https://www.msys2.org/)
+2. Open the mingw64.exe (C:\msys64)
+3. Update Packages (pacman -Syu --noconfirm)
+4. Install gcc (pacman -S gcc --noconfirm)
+    a. https://packages.msys2.org/package/gcc?repo=msys&variant=x86_64
+5. Install git (pacman -S git --noconfirm)
+    a. pacman -S git
+6. Create src folder in $HOME directory. All commands to be executed within src folder
+7. Install gdb (Optional)
+    a. https://ftp.gnu.org/gnu/gdb/
+    b. Download 14.2
+    c. curl "https://ftp.gnu.org/gnu/gdb/gdb-14.2.tar.gz" --output gdb-14.2.tar.gz
+    d. tar -xvzf gdb-14.2.tar.gz
+8. Install binutils
+    a. https://ftp.gnu.org/gnu/binutils/
+    b. Download 2.42
+    c. curl "https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.gz" --output binutils-2.42.tar.gz
+    d. tar -xvzf binutils-2.42.tar.gz
+9. Download gcc source code
+    a. git clone git://gcc.gnu.org/git/gcc.git gcc-13.2 (takes long time)
+    b. OR https://ftp.gnu.org/gnu/gcc/
+    c. curl "https://ftp.gnu.org/gnu/gcc/gcc-13.2.0/gcc-13.2.0.tar.gz" --output gcc-13.2.0.tar.gz
+    d. tar -xvzf gcc-13.2.0.tar.gz
+10. OSDEV Cross Compiler (https://wiki.osdev.org/GCC_Cross-Compiler)
+    1. pacman -S make --noconfirm
+    2. pacman -S bison --noconfirm
+    3. pacman -S flex --noconfirm
+    4. pacman -S mingw-w64-x86_64-gmp --noconfirm
+    5. pacman -S mpc-devel --noconfirm
+    6. pacman -S mpfr-devel --noconfirm
+    7. pacman -S texinfo --noconfirm
+    8. pacman -S isl-devel --noconfirm
+11. VARIABLES
+    export PREFIX="$HOME/opt/cross"
+    export TARGET=i686-elf
+    export PATH="$PREFIX/bin:$PATH"
+12. binutils
+    cd $HOME/src
+    mkdir build-binutils
+    cd build-binutils
+    ../binutils-2.42/configure --target=$TARGET --prefix="$PREFIX" --with-sysroot --disable-nls --disable-werror
+    make
+    make install
+13. gdb
+    ../gdb-14.2/configure --target=$TARGET --prefix="$PREFIX" --disable-werror
+    make all-gdb
+    make install-gdb
+14. GCC
+    cd $HOME/src
+    # The $PREFIX/bin dir _must_ be in the PATH. We did that above.
+    which -- $TARGET-as || echo $TARGET-as is not in the PATH
+    mkdir build-gcc
+    cd build-gcc
+    ../gcc-13.2/configure --target=$TARGET --prefix="$PREFIX" --disable-nls --enable-languages=c,c++ --without-headers
+    make all-gcc
+    make all-target-libgcc
+    make install-gcc
+    make install-target-libgcc
+
+
+*********************************************************************
+pacman -Syu --noconfirm
+pacman -S gcc --noconfirm
+pacman -S git --noconfirm
+pacman -S make --noconfirm
+pacman -S bison --noconfirm
+pacman -S flex --noconfirm
+pacman -S mingw-w64-x86_64-gmp --noconfirm
+pacman -S mpc-devel --noconfirm
+pacman -S mpfr-devel --noconfirm
+pacman -S texinfo --noconfirm
+pacman -S isl-devel --noconfirm
+************************************************************
+
+
+*******************************************************
+cd $HOME
+mkdir src
+cd src
+export PREFIX="$HOME/opt/cross"
+export TARGET=i686-elf
+export PATH="$PREFIX/bin:$PATH"
+
+curl "https://ftp.gnu.org/gnu/gdb/gdb-14.2.tar.gz" --output gdb-14.2.tar.gz
+tar -xvzf gdb-14.2.tar.gz
+curl "https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.gz" --output binutils-2.42.tar.gz
+tar -xvzf binutils-2.42.tar.gz
+curl "https://ftp.gnu.org/gnu/gcc/gcc-13.2.0/gcc-13.2.0.tar.gz" --output gcc-13.2.0.tar.gz
+tar -xvzf gcc-13.2.0.tar.gz
+
+cd $HOME/src
+mkdir build-binutils
+cd build-binutils
+../binutils-2.42/configure --target=$TARGET --prefix="$PREFIX" --with-sysroot --disable-nls --disable-werror
+make
+make install
+
+../gdb-14.2/configure --target=$TARGET --prefix="$PREFIX" --disable-werror
+make all-gdb
+make install-gdb
+
+cd $HOME/src
+# The $PREFIX/bin dir _must_ be in the PATH. We did that above.
+which -- $TARGET-as || echo $TARGET-as is not in the PATH
+mkdir build-gcc
+cd build-gcc
+../gcc-13.2.0/configure --target=$TARGET --prefix="$PREFIX" --disable-nls --enable-languages=c,c++ --without-headers
+make all-gcc
+make all-target-libgcc
+make install-gcc
+make install-target-libgcc

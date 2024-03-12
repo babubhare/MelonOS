@@ -1,8 +1,14 @@
+Video Script:
+1. Why we need a cross Compiler
+2. What is Cygwin
+3. MSYS2 & mingw64
+
+
 *********************************************************************************************
-GCC CROSS COMPILER ON WINDOWS - MSYS2 (mingw64)
+GCC CROSS COMPILER ON WINDOWS - CYGWIN 
 *********************************************************************************************
 
-1. Install MSYS2 (https://www.msys2.org/)
+1. Install CYGWIN (https://www.cygwin.com/)
 2. Open the mingw64.exe (C:\msys64)
 3. Update Packages (pacman -Syu)
 4. Install gcc (pacman -S gcc)
@@ -22,6 +28,9 @@ GCC CROSS COMPILER ON WINDOWS - MSYS2 (mingw64)
     d. tar -xvzf binutils-2.42.tar.gz
 9. Download gcc source code
     a. git clone git://gcc.gnu.org/git/gcc.git gcc-13.2 (takes long time)
+    b. OR https://ftp.gnu.org/gnu/gcc/
+    c. curl "https://ftp.gnu.org/gnu/gcc/gcc-13.2.0/gcc-13.2.0.tar.gz" --output gcc-13.2.0.tar.gz
+    d. tar -xvzf gcc-13.2.0.tar.gz
 10. OSDEV Cross Compiler (https://wiki.osdev.org/GCC_Cross-Compiler)
     1. pacman -S make
     2. pacman -S bison
@@ -42,4 +51,18 @@ GCC CROSS COMPILER ON WINDOWS - MSYS2 (mingw64)
     ../binutils-2.42/configure --target=$TARGET --prefix="$PREFIX" --with-sysroot --disable-nls --disable-werror
     make
     make install
-13. 
+13. gdb
+    ../gdb-14.2/configure --target=$TARGET --prefix="$PREFIX" --disable-werror
+    make all-gdb
+    make install-gdb
+14. GCC
+    cd $HOME/src
+    # The $PREFIX/bin dir _must_ be in the PATH. We did that above.
+    which -- $TARGET-as || echo $TARGET-as is not in the PATH
+    mkdir build-gcc
+    cd build-gcc
+    ../gcc-13.2/configure --target=$TARGET --prefix="$PREFIX" --disable-nls --enable-languages=c,c++ --without-headers
+    make all-gcc
+    make all-target-libgcc
+    make install-gcc
+    make install-target-libgcc
