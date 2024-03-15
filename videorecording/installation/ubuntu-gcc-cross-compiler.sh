@@ -1,10 +1,9 @@
 #!/bin/sh
-sudo yum update --assumeyes 
-sudo yum upgrade --assumeyes
+sudo apt-get update --assume-yes 
+sudo apt-get upgrade --assume-yes
 
-sudo yum install gcc --assumeyes
-sudo yum install gcc gcc-c++ --assumeyes
-sudo yum install git --assumeyes
+sudo apt-get install build-essential --assume-yes
+sudo apt-get install git --assume-yes
 
 cd $HOME
 mkdir src
@@ -17,13 +16,13 @@ tar -xvzf binutils-2.42.tar.gz
 curl "https://ftp.gnu.org/gnu/gcc/gcc-13.2.0/gcc-13.2.0.tar.gz" --output gcc-13.2.0.tar.gz
 tar -xvzf gcc-13.2.0.tar.gz
 
-sudo yum install bison --assumeyes
-sudo yum install flex --assumeyes
-sudo yum install gmp-devel --assumeyes
-sudo yum install libmpc-devel --assumeyes
-sudo yum install mpfr-devel --assumeyes
-sudo yum install texinfo --assumeyes
-sudo yum install isl-devel --assumeyes
+sudo apt-get install bison --assume-yes
+sudo apt-get install flex --assume-yes
+sudo apt-get install libgmp3-dev --assume-yes
+sudo apt-get install libmpc-dev --assume-yes
+sudo apt-get install libmpfr-dev --assume-yes
+sudo apt-get install texinfo --assume-yes
+sudo apt-get install libisl-dev --assume-yes
 
 export PREFIX="$HOME/opt/cross"
 export TARGET=i686-elf
