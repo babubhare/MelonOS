@@ -56,8 +56,7 @@ export PREFIX="$HOME/opt/cross"
 export TARGET=i686-elf
 export PATH="$PREFIX/bin:$PATH"
 
-
-
+chmod 600 $HOME/.ssh/id_rsa
 git config --global user.name "Babu Chandranna"
 git config --global user.email "babubhare@gmail.com"
 **************************************************************************************

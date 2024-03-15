@@ -4,17 +4,18 @@ Video Script:
 
 
 *********************************************************************************************
-GCC CROSS COMPILER WSL Ubuntu
+GCC CROSS COMPILER WSL Fedora
 *********************************************************************************************
 
 1. Install Ubuntu 20.04 LTS
 2. Update Packages 
-    sudo apt-get update --assume-yes 
-    sudo apt-get upgrade --assume-yes
+    sudo yum update --assumeyes
+    sudo yum upgrade --assumeyes
 4. Install gcc 
-    sudo apt-get install build-essential --assume-yes
+    sudo yum install gcc --assumeyes
+    sudo yum install gcc gcc-c++ --assumeyes
 5. Install git 
-    sudo apt-get install git --assume-yes
+    sudo yum install git --assumeyes
 6. Create src folder in $HOME directory. All commands to be executed within src folder
     cd $HOME
     mkdir src
@@ -35,13 +36,13 @@ GCC CROSS COMPILER WSL Ubuntu
     curl "https://ftp.gnu.org/gnu/gcc/gcc-13.2.0/gcc-13.2.0.tar.gz" --output gcc-13.2.0.tar.gz
     tar -xvzf gcc-13.2.0.tar.gz
 10. OSDEV Cross Compiler (https://wiki.osdev.org/GCC_Cross-Compiler)
-    sudo apt-get install bison --assume-yes
-    sudo apt-get install flex --assume-yes
-    sudo apt-get install libgmp3-dev --assume-yes
-    sudo apt-get install libmpc-dev --assume-yes
-    sudo apt-get install libmpfr-dev --assume-yes
-    sudo apt-get install texinfo --assume-yes
-    sudo apt-get install libisl-dev --assume-yes
+    sudo yum install bison --assumeyes
+    sudo yum install flex --assumeyes
+    sudo yum install gmp-devel --assumeyes
+    sudo yum install libmpc-devel --assumeyes
+    sudo yum install mpfr-devel --assumeyes
+    sudo yum install texinfo --assumeyes
+    sudo yum install isl-devel --assumeyes
 11. VARIABLES
     export PREFIX="$HOME/opt/cross"
     export TARGET=i686-elf
@@ -73,11 +74,11 @@ GCC CROSS COMPILER WSL Ubuntu
 ALL COMMANDS
 *********************************************************************************************
 
-sudo apt-get update --assume-yes 
-sudo apt-get upgrade --assume-yes
+sudo yum update --assumeyes 
+sudo yum upgrade --assumeyes
 
-sudo apt-get install build-essential --assume-yes
-sudo apt-get install git --assume-yes
+sudo yum install gcc --assumeyes
+sudo yum install gcc gcc-c++ --assumeyes
 
 cd $HOME
 mkdir src
@@ -90,13 +91,13 @@ tar -xvzf binutils-2.42.tar.gz
 curl "https://ftp.gnu.org/gnu/gcc/gcc-13.2.0/gcc-13.2.0.tar.gz" --output gcc-13.2.0.tar.gz
 tar -xvzf gcc-13.2.0.tar.gz
 
-sudo apt-get install bison --assume-yes
-sudo apt-get install flex --assume-yes
-sudo apt-get install libgmp3-dev --assume-yes
-sudo apt-get install libmpc-dev --assume-yes
-sudo apt-get install libmpfr-dev --assume-yes
-sudo apt-get install texinfo --assume-yes
-sudo apt-get install libisl-dev --assume-yes
+sudo yum install bison --assumeyes
+sudo yum install flex --assumeyes
+sudo yum install gmp-devel --assumeyes
+sudo yum install libmpc-devel --assumeyes
+sudo yum install mpfr-devel --assumeyes
+sudo yum install texinfo --assumeyes
+sudo yum install isl-devel --assumeyes
 
 export PREFIX="$HOME/opt/cross"
 export TARGET=i686-elf
