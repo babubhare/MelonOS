@@ -15,6 +15,11 @@ For Windows system
 
 In one terminal of mingw:
 qemu-system-x86_64 -hda ./bin/os.bin -S -gdb tcp:127.0.0.1:1234
+qemu-system-x86_64 -hda ./bin/os.bin -S -gdb tcp:127.0.0.1:1234 stdio -nographic
+
+*************************************************************************
+
+dnf provides  /usr/bin/qemu-system-x86_64
 
 
 **************************************************************************************

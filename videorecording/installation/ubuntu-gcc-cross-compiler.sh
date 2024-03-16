@@ -1,6 +1,6 @@
 #!/bin/sh
 sudo apt-get update --assume-yes 
-sudo apt-get upgrade --assume-yes
+#sudo apt-get upgrade --assume-yes
 
 sudo apt-get install build-essential --assume-yes
 sudo apt-get install git --assume-yes
