@@ -5,7 +5,7 @@
 4. ./build.sh
 5. Run qemu up command 
     qemu-system-x86_64 -hda ./bin/os.bin -S -gdb tcp:127.0.0.1:1234 -nographic
-    qemu-system-x86_64 -hda ./boot_char.bin -nographicls
+    qemu-system-x86_64 -hda ./boot_char.bin -nographic
     ndisasm
 6. Open another prompt; connect to fedora
     gdb
