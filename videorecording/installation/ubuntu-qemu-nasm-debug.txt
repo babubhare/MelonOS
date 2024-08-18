@@ -5,6 +5,7 @@
 4. ./build.sh
 5. Run qemu up command 
     qemu-system-x86_64 -hda ./bin/os.bin -S -gdb tcp:127.0.0.1:1234 -nographic
+    qemu-system-x86_64 -hda ./boot_char.bin -nographicls
     ndisasm
 6. Open another prompt; connect to fedora
     gdb
@@ -25,11 +26,10 @@ KILL Qemu in nographics:
 2. Used ps to find PID of previous tty: ps -fu
 3. Killed previous tty: kill -HUP PID
 4. Contrl + a ; x
+5. xxd for hex and binary viewer (xxd -b file or xxd file)
 
 
-Disaaebler:
-10
-
+DisAssembler:
 Let's look at the code:
 
 004520F4 55             push ebp      
@@ -37,8 +37,8 @@ Let's look at the code:
 004520F7 6A00           push $00      
 004520F9 53             push ebx      
 004520FA 33D2           xor edx,edx
-Each line here represent a single machine instruction. The information presented is as follows:
 
+Each line here represent a single machine instruction. The information presented is as follows:
 The first column is the address at which the instruction starts, displayed in hex.
 The second column is the machine code for the instruction, displayed in hex.
 The third column is the instruction disassembled to assembler language.
