@@ -20,6 +20,7 @@
     cntrl c
     disas 0x0100000, 0x0100fff
     layout asm
+    view memory location x/5i 0x7c00
     
 KILL Qemu in nographics:
 1. Opened new terminal session
