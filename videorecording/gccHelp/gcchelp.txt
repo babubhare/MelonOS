@@ -23,3 +23,17 @@ ld -dynamic-Linker elf.o and all the runtime object files
 To Dis Assemble
 objdump -d -M intel elf.o
 objdump -d -M intel a.out
+
+
+When an assembly file is converted to object code which is the Machine Code; unresolved symbols are maintained
+The Linker takes all the Object FIles and combines to single executable file.
+Puts the code to .text section for code
+Linker Job:
+1. Symbol REsolution
+2. Object Relocation
+
+nm object files will list symbols
+nm kernel.asm.o
+
+
+
