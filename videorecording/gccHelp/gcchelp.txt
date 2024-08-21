@@ -1,0 +1,25 @@
+Compilation Process:
+1. Preprocessing
+2. Compilation: Convert High Level language to Assembly language
+3. Assembler: Convert Assembly Language to Object or Machine code
+4. Linker: Link multiple object files to create an execuatable
+
+
+Preprocessing:
+gcc -E elf.c -o elf.p
+
+COmpilation: Creating assembly FIle:
+/usr/libexec/gcc/x86_64-linux-gnu/13/cc1 elf.p
+creates a elf.s file
+
+From Assembly code convert to object code:
+as elf.s -o elf.o
+object code is Machine Code 
+
+Next is the Linker:
+ld -dynamic-Linker elf.o and all the runtime object files
+
+
+To Dis Assemble
+objdump -d -M intel elf.o
+objdump -d -M intel a.out
