@@ -36,4 +36,8 @@ nm object files will list symbols
 nm kernel.asm.o
 
 
+https://cs.lmu.edu/~ray/notes/x86assembly/
+
+readelf objectfile -a
+nm objectfile
 
