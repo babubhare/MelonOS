@@ -71,6 +71,16 @@ void print(const char* str)
 
 void kernel_main()
 {
+    *(char *)(0xb8000) = 'B';
+    *(char *)(0xb8001) = 0x09;
+    *(char *)(0xb8002) = 'C';
+    *(char *)(0xb8003) = 0x0a;
+    
+
+}
+
+void kernel_main_new()
+{
     terminal_initialize();
-    print("Hello world!");
+    print("Hello world!\ntest");
 }
