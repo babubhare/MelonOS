@@ -6,6 +6,7 @@ Commands:
 2. Debug symbols are available in build folder
 3. Kernel.asm is built and linked as elf and then converted to pure binary which is not an elf
 4. Kernel c code is compiled as elf and moved to object file with plain assembly code
+5. The characters cannot be viewed from the vm; need to run the qemu from parent computer to view the text
 
 
 Run qemu up command 
