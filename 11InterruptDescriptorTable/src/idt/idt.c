@@ -12,6 +12,11 @@ void idt_zero()
     print("Divide by zero error\n");
 }
 
+void idt_one()
+{
+    print("Divide by one  error\n");
+}
+
 void idt_set(int interrupt_no, void* address)
 {
     struct idt_desc* desc = &idt_descriptors[interrupt_no];
@@ -22,6 +27,7 @@ void idt_set(int interrupt_no, void* address)
     desc->offset_2 = (uint32_t) address >> 16;
 }
 
+
 void idt_init()
 {
     memset(idt_descriptors, 0, sizeof(idt_descriptors));
@@ -29,6 +35,7 @@ void idt_init()
     idtr_descriptor.base = (uint32_t) idt_descriptors;
 
     idt_set(0, idt_zero);
+    idt_set(1, idt_one);
 
     // Load the interrupt descriptor table
     idt_load(&idtr_descriptor);
