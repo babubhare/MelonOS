@@ -4,6 +4,7 @@ Commands:
 
 1. Creates os.bin to bin directory
 2. Debug symbols are available in build folder
+3. Kernel.asm is built and linked as elf and then converted to pure binary which is not an elf
 
 Run qemu up command 
     qemu-system-x86_64 -hda ./bin/os.bin -S -gdb tcp:127.0.0.1:1234 -nographic
