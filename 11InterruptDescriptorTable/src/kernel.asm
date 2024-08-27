@@ -27,6 +27,6 @@ _start:
     jmp $
 
 problem:
-    int 1
+    int 0
 
 times 512-($ - $$) db 0
