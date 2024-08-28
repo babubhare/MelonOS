@@ -14,7 +14,7 @@ void idt_zero()
 
 void idt_one00()
 {
-    print("Divide by zero error\n");
+    print("100 Interrupt Invoked\n");
 }
 
 
