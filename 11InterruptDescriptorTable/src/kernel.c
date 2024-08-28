@@ -69,8 +69,6 @@ void print(const char* str)
     }
 }
 
-extern void problem();
-
 void kernel_main()
 {
     terminal_initialize();
@@ -78,6 +76,4 @@ void kernel_main()
 
     // Initialize the interrupt descriptor table
     idt_init();
-
-    problem();
 }
