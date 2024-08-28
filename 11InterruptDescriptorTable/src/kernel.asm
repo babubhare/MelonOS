@@ -1,7 +1,7 @@
 [BITS 32]
 
 global _start
-;global problem
+global problem
 extern kernel_main
 
 CODE_SEG equ 0x08
@@ -26,7 +26,7 @@ _start:
 
     jmp $
 
-;problem:
-    ;int 32
+problem:
+    int 100
 
 times 512-($ - $$) db 0
