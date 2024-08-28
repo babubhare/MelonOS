@@ -1,7 +1,7 @@
 [BITS 32]
 
 global _start
-
+global _problem
 extern kernel_main
 
 CODE_SEG equ 0x08
@@ -23,7 +23,13 @@ _start:
     out 0x92, al
 
     call kernel_main
+    ;Calling the interrupt
+    ;int 100
+   
+
+_problem: 
     int 100
+
     jmp $
 
 times 512-($ - $$) db 0
