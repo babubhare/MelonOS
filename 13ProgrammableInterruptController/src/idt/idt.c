@@ -22,8 +22,8 @@ void int21h_keyboard_handler()
 void int20h_timer_handler()
 {
     print("Timer activated!\n");
-    terminal_initialize('#');
-    terminal_initialize(' ');
+    //terminal_initialize('#');
+    //terminal_initialize(' ');
     outb(0x20, 0x20);
 }
 
