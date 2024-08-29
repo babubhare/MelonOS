@@ -14,6 +14,14 @@ IRQ 21 => Keyboard
 
 Run qemu up command 
     qemu-system-x86_64 -hda ./bin/os.bin -S -gdb tcp:127.0.0.1:1234 -nographic
+    qemu-system-x86_64 -hda ./bin/os.bin -nographic
+
+Since no graphics is used in a vm; we cannot view the Interrupts messages. Follow the steps
+1. Push to git
+2. Pull to base computer 
+3. qemu-system-x86_64 -hda ./bin/os.bin 
+
+in vm GTX has issues with graphics
 
 Open another prompt
     gdb
