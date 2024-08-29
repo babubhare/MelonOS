@@ -84,4 +84,14 @@ void kernel_main()
     terminal_initialize('-');
     print("Hello world!\ntest");
     terminal_initialize('#');
+
+
+    for(int i = 0; i < 1000; i ++)
+    {
+        if((i % 2) == 0)
+            terminal_initialize('-');
+        else
+            terminal_initialize('@');
+    }
+
 }
