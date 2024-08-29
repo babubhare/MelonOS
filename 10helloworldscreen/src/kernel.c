@@ -34,7 +34,7 @@ void terminal_writechar(char c, char colour)
         terminal_row += 1;
     }
 }
-void terminal_initialize()
+void terminal_initialize(char c)
 {
     video_mem = (uint16_t*)(0xB8000);
     terminal_row = 0;
@@ -43,7 +43,7 @@ void terminal_initialize()
     {
         for (int x = 0; x < VGA_WIDTH; x++)
         {
-            terminal_putchar(x, y, '-', 2);
+            terminal_putchar(x, y, c, 2);
         }
     }   
 }
@@ -81,6 +81,7 @@ void kernel_main_new()
 
 void kernel_main()
 {
-    terminal_initialize();
+    terminal_initialize('@');
     print("Hello world!\ntest");
+    terminal_initialize('-');
 }
