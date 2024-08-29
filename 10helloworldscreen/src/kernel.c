@@ -81,7 +81,7 @@ void kernel_main_new()
 
 void kernel_main()
 {
-    terminal_initialize('@');
-    print("Hello world!\ntest");
     terminal_initialize('-');
+    print("Hello world!\ntest");
+    terminal_initialize('@');
 }
