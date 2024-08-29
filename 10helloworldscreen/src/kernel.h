@@ -1,8 +1,8 @@
 #ifndef KERNEL_H
 #define KERNEL_H
 
-#define VGA_WIDTH 800
-#define VGA_HEIGHT 200
+#define VGA_WIDTH 80
+#define VGA_HEIGHT 20
 
 
 void kernel_main();
