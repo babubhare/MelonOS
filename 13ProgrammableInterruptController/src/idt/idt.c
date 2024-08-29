@@ -7,14 +7,21 @@ struct idt_desc idt_descriptors[PEACHOS_TOTAL_INTERRUPTS];
 struct idtr_desc idtr_descriptor;
 
 extern void idt_load(struct idtr_desc* ptr);
-extern void int21h();
+extern void int21hKeyboardHandler();
 extern void int0h();
 
 extern void no_interrupt();
+extern void int20hTimerHandler();
 
-void int21h_handler()
+void int21h_keyboard_handler()
 {
     print("Keyboard pressed!\n");
+    outb(0x20, 0x20);
+}
+
+void int20h_timer_handler()
+{
+    print("Timer activated!\n");
     outb(0x20, 0x20);
 }
 
@@ -26,6 +33,7 @@ void no_interrupt_handler()
 void int0h_handler()
 {
     print("Divide by zero error\n");
+    outb(0x20, 0x20);
 }
 
 void idt_set(int interrupt_no, void* address)
@@ -50,7 +58,8 @@ void idt_init()
     }
 
     idt_set(0, int0h);
-    idt_set(0x21, int21h);
+    idt_set(0x21, int21hKeyboardHandler);
+    idt_set(0x20, int20hTimerHandler);
 
 
     // Load the interrupt descriptor table
