@@ -1,9 +1,11 @@
 section .asm
 
 extern int21h_handler
+extern int0h_handler
 extern no_interrupt_handler
 
 global int21h
+global int0h
 global idt_load
 global no_interrupt
 
@@ -33,4 +35,11 @@ no_interrupt:
     sti
     iret
 
+int0h:
+    cli
+    pushad
+    call int0h_handler
+    popad
+    sti
+    iret
     
