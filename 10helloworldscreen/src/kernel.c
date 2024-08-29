@@ -83,5 +83,5 @@ void kernel_main()
 {
     terminal_initialize('-');
     print("Hello world!\ntest");
-    terminal_initialize('@');
+    terminal_initialize(' ');
 }
