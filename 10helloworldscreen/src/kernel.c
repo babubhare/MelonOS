@@ -43,7 +43,7 @@ void terminal_initialize(char c)
     {
         for (int x = 0; x < VGA_WIDTH; x++)
         {
-            terminal_putchar(x, y, c, 0);
+            terminal_putchar(x, y, c, 1);
         }
     }   
 }
@@ -83,5 +83,5 @@ void kernel_main()
 {
     terminal_initialize('-');
     print("Hello world!\ntest");
-    terminal_initialize(' ');
+    terminal_initialize('#');
 }
