@@ -43,7 +43,7 @@ void terminal_initialize()
     {
         for (int x = 0; x < VGA_WIDTH; x++)
         {
-            terminal_putchar(x, y, ' ', 1);
+            terminal_putchar(x, y, '-', 2);
         }
     }   
 }
