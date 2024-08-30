@@ -28,7 +28,7 @@ KILL Qemu in nographics:
 3. Killed previous tty: kill -HUP PID
 4. Contrl + a ; x
 5. xxd for hex and binary viewer (xxd -b file or xxd file)
-
+6. Exit from lyout asm => Ctrl + X; Ctrl + A
 
 DisAssembler:
 Let's look at the code:
