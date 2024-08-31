@@ -81,10 +81,11 @@ void kernel_main()
     // Initialize the interrupt descriptor table
     idt_init();
 
-    void* ptr1 = kmalloc(50);
-    void* ptr2 = kmalloc(5000);
+    void* ptr1 = kmalloc(50); //1000000
+    void* ptr2 = kmalloc(5000); //1001000
+    void* ptr3 = kmalloc(5000); //1003000
 
-    if(ptr1 || ptr2)
+    if(ptr1 || ptr2 || ptr3)
     {
         print("My Storage Allocated \n");
     }
