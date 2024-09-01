@@ -90,18 +90,34 @@ void kernel_main()
     // Switch to kernel paging chunk
     paging_switch(paging_4gb_chunk_get_directory(kernel_chunk));
 
-    char* ptr = kzalloc(4096); 
-    paging_set(paging_4gb_chunk_get_directory(kernel_chunk), (void*)0x1000, (uint32_t)ptr | PAGING_ACCESS_FROM_ALL | PAGING_IS_PRESENT | PAGING_IS_WRITEABLE);
+    //0x1402000
+    char* ptrExact1 = kzalloc(4096); 
+
+    //Manually setting the virtuall address
+    paging_set(paging_4gb_chunk_get_directory(kernel_chunk), (void*)0x1000, (uint32_t)ptrExact1 | PAGING_ACCESS_FROM_ALL | PAGING_IS_PRESENT | PAGING_IS_WRITEABLE);
+
+    //0x1403000
+    char* ptrExact2 = kzalloc(4096); 
+
+    //Manually setting the virtuall address
+    paging_set(paging_4gb_chunk_get_directory(kernel_chunk), (void*)0x2000, (uint32_t)ptrExact2 | PAGING_ACCESS_FROM_ALL | PAGING_IS_PRESENT | PAGING_IS_WRITEABLE);
 
     // Enable paging
     enable_paging();
 
-    char* ptr2 = (char*) 0x1000;
-    ptr2[0] = 'A';
-    ptr2[1] = 'B';
+    char* ptr1 = (char*) 0x1000;
+    ptr1[0] = 'A';
+    ptr1[1] = 'B';
+    print(ptr1);
+
+    print(ptrExact1);
+
+    char* ptr2 = (char*) 0x2000;
+    ptr2[0] = 'C';
+    ptr2[1] = 'D';
     print(ptr2);
 
-    print(ptr);
+    print(ptrExact2);
 
 
     // Enable the system interrupts

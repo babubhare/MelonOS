@@ -6,10 +6,14 @@ void paging_load_directory(uint32_t* directory);
 static uint32_t* current_directory = 0;
 struct paging_4gb_chunk* paging_new_4gb(uint8_t flags)
 {
+
+    //4KB ist 1024 * 4
     uint32_t* directory = kzalloc(sizeof(uint32_t) * PAGING_TOTAL_ENTRIES_PER_TABLE);
     int offset = 0;
     for (int i = 0; i < PAGING_TOTAL_ENTRIES_PER_TABLE; i++)
     {
+        //4KB ist 1024 * 4
+        //1024*4KB => 4 MB
         uint32_t* entry = kzalloc(sizeof(uint32_t) * PAGING_TOTAL_ENTRIES_PER_TABLE);
         for (int b = 0; b < PAGING_TOTAL_ENTRIES_PER_TABLE; b++)
         {
@@ -21,6 +25,10 @@ struct paging_4gb_chunk* paging_new_4gb(uint8_t flags)
 
     struct paging_4gb_chunk* chunk_4gb = kzalloc(sizeof(struct paging_4gb_chunk));
     chunk_4gb->directory_entry = directory;
+
+    //Heap Memory 
+    //So the address => 1401000
+
     return chunk_4gb;
 }
 
