@@ -21,6 +21,9 @@
     disas 0x0100000, 0x0100fff
     layout asm
     view memory location x/5i 0x7c00
+    p ($esp + (void *)&intValue1)
+    p/x *above address
+
     
 KILL Qemu in nographics:
 1. Opened new terminal session
