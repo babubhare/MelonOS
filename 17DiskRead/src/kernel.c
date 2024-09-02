@@ -84,7 +84,7 @@ void kernel_main()
 
     // Search and initialize the disks
     disk_search_and_init();
-    //struct disk* idisk = disk_get(0);
+    struct disk* idisk = disk_get(0);
 
     // Initialize the interrupt descriptor table
     idt_init();
@@ -100,8 +100,8 @@ void kernel_main()
 
     char buf[512];
 
-    //int returnData = disk_read_block(idisk, 0, 1, buf);
-    int returnData = disk_read_sector(0, 1, buf);
+    int returnData = disk_read_block(idisk, 0, 1, buf);
+    //int returnData = disk_read_sector(1, 1, buf);
 
     if(returnData == 0)
     {
