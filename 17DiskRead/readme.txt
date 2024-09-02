@@ -49,5 +49,5 @@ How to view the data at the buf pointer in the kernel.c
 1. get the esp (i r esp)
 2. get the address of buf; &buf
 3. add esp + buf
-4. x/b 0x1ffdec (to print the binary value)
-5. x/512b 0x1ffdec
+4. x/b *0x1ffde8 (to print the binary value)
+5. x/512b *0x1ffdec

@@ -6,7 +6,7 @@
 #include "memory/paging/paging.h"
 #include "disk/disk.h"
 
-uint16_t* video_mem = 0;
+uint16_t *video_mem = 0;
 uint16_t terminal_row = 0;
 uint16_t terminal_col = 0;
 
@@ -39,7 +39,7 @@ void terminal_writechar(char c, char colour)
 }
 void terminal_initialize()
 {
-    video_mem = (uint16_t*)(0xB8000);
+    video_mem = (uint16_t *)(0xB8000);
     terminal_row = 0;
     terminal_col = 0;
     for (int y = 0; y < VGA_HEIGHT; y++)
@@ -48,14 +48,13 @@ void terminal_initialize()
         {
             terminal_putchar(x, y, ' ', 0);
         }
-    }   
+    }
 }
 
-
-size_t strlen(const char* str)
+size_t strlen(const char *str)
 {
     size_t len = 0;
-    while(str[len])
+    while (str[len])
     {
         len++;
     }
@@ -63,7 +62,7 @@ size_t strlen(const char* str)
     return len;
 }
 
-void print(const char* str)
+void print(const char *str)
 {
     size_t len = strlen(str);
     for (int i = 0; i < len; i++)
@@ -72,8 +71,7 @@ void print(const char* str)
     }
 }
 
-
-static struct paging_4gb_chunk* kernel_chunk = 0;
+static struct paging_4gb_chunk *kernel_chunk = 0;
 void kernel_main()
 {
     terminal_initialize();
@@ -84,14 +82,14 @@ void kernel_main()
 
     // Search and initialize the disks
     disk_search_and_init();
-    struct disk* idisk = disk_get(0);
+    struct disk *idisk = disk_get(0);
 
     // Initialize the interrupt descriptor table
     idt_init();
 
     // Setup paging
     kernel_chunk = paging_new_4gb(PAGING_IS_WRITEABLE | PAGING_IS_PRESENT | PAGING_ACCESS_FROM_ALL);
-    
+
     // Switch to kernel paging chunk
     paging_switch(paging_4gb_chunk_get_directory(kernel_chunk));
 
@@ -100,15 +98,31 @@ void kernel_main()
 
     char buf[512];
 
-    int returnData = disk_read_block(idisk, 0, 1, buf);
-    //int returnData = disk_read_sector(1, 1, buf);
+    int returnData = 0;
+    returnData = disk_read_sector(0, 1, buf);
+    returnData = disk_read_sector(1, 1, buf);
+    returnData = disk_read_block(idisk, 0, 1, buf);
+    returnData = disk_read_block(idisk, 1, 1, buf);
+    returnData = disk_read_sector(133, 1, buf);
+    returnData = disk_read_sector(134, 1, buf);
 
-    if(returnData == 0)
+    for (int i = 0; i < 135; i++)
+    {
+        //returnData = disk_read_block(idisk, i, 1, buf);
+        returnData = disk_read_sector(i, 1, buf);
+
+        if (returnData != 0)
+        {
+        }
+    }
+    // int returnData = disk_read_sector(1, 1, buf);
+
+    if (returnData == 0)
     {
         print("Printing Buffer");
         print(buf);
     }
-    
+
     // Enable the system interrupts
     enable_interrupts();
 }
