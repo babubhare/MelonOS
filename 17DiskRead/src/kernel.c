@@ -84,16 +84,7 @@ void kernel_main()
 
     // Search and initialize the disks
     disk_search_and_init();
-    struct disk* idisk = disk_get(0);
-
-    char buf[512];
-
-    int returnData = disk_read_block(idisk, 0, 1, &buf);
-
-    if(returnData)
-    {
-
-    }
+    //struct disk* idisk = disk_get(0);
 
     // Initialize the interrupt descriptor table
     idt_init();
@@ -104,10 +95,19 @@ void kernel_main()
     // Switch to kernel paging chunk
     paging_switch(paging_4gb_chunk_get_directory(kernel_chunk));
 
-    
-    
     // Enable paging
     enable_paging();
+
+    char buf[512];
+
+    //int returnData = disk_read_block(idisk, 0, 1, buf);
+    int returnData = disk_read_sector(0, 1, buf);
+
+    if(returnData == 0)
+    {
+        print("Printing Buffer");
+        print(buf);
+    }
     
     // Enable the system interrupts
     enable_interrupts();
