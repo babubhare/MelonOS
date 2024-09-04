@@ -40,6 +40,7 @@ Open another prompt
     ALT + A ; X to exit fromqemu
     p ($esp + (void *)&intValue1)
     p/x *above address
+    p (*((struct path_root *) 0xf000ff53))
 
 https://web.mit.edu/gnu/doc/html/gdb_8.html
 
