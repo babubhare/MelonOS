@@ -103,16 +103,17 @@ void kernel_main()
     returnData = disk_read_sector(1, 1, buf);
     returnData = disk_read_block(idisk, 0, 1, buf);
     returnData = disk_read_block(idisk, 1, 1, buf);
-    returnData = disk_read_sector(133, 1, buf);
-    returnData = disk_read_sector(134, 1, buf);
+    returnData = disk_read_sector(141, 1, buf);
+    returnData = disk_read_sector(142, 1, buf);
 
-    for (int i = 0; i < 135; i++)
+    for (int i = 0; i < 143; i++)
     {
         //returnData = disk_read_block(idisk, i, 1, buf);
         returnData = disk_read_sector(i, 1, buf);
 
         if (returnData != 0)
         {
+            print("Printing Buffer in for loop");
         }
     }
     // int returnData = disk_read_sector(1, 1, buf);
