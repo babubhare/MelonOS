@@ -57,3 +57,10 @@ How to view the data at the buf pointer in the kernel.c
 https://imhex.werwolv.net/
 imhex to view the binary data
 https://visualgdb.com/gdbreference/commands/x
+
+
+1. user mkfs command to create a file system
+sudo touch /mnt/usb.img
+sudo fallocate -l 512M /mnt/usb.img
+sudo mkfs.vfat usb.img
+sudo mount -t vfat ./bin/os.bin /mnt/d
