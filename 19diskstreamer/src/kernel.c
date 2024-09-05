@@ -97,5 +97,6 @@ void kernel_main()
     diskstreamer_seek(stream, 0x220);
     unsigned char c = 0;
     diskstreamer_read(stream, &c, 1);
+
     while(1) {}
 }

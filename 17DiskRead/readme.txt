@@ -16,6 +16,8 @@ Run qemu up command
     qemu-system-x86_64 -hda ./bin/os.bin -S -gdb tcp:127.0.0.1:1234 -nographic
     qemu-system-x86_64 -hda ./bin/os.bin -nographic
 
+    qemu-system-i386 -hda ./bin/os.bin -S -gdb tcp:127.0.0.1:1234 -nographic
+
 Since no graphics is used in a vm; we cannot view the Interrupts messages. Follow the steps
 1. Push to git
 2. Pull to base computer 
@@ -40,6 +42,7 @@ Open another prompt
     ALT + A ; X to exit fromqemu
     p ($esp + (void *)&intValue1)
     p/x *above address
+    p/x buf
 
 https://web.mit.edu/gnu/doc/html/gdb_8.html
 
