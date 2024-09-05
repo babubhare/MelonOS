@@ -7,7 +7,7 @@ all: ./bin/boot.bin ./bin/kernel.bin
 	sudo mount -t vfat ./bin/os.bin /mnt/d
 	# Copy a file over
 	sudo cp ./hello.txt /mnt/d
-	#sudo umount /mnt/d
+	sudo umount /mnt/d
 	
 ./bin/boot.bin: ./src/boot/boot.asm
 	nasm -f bin ./src/boot/boot.asm -o ./bin/boot.bin
