@@ -17,6 +17,7 @@ Run qemu up command
     qemu-system-x86_64 -hda ./bin/os.bin -nographic
 
     qemu-system-i386 -hda ./bin/os.bin -S -gdb tcp:127.0.0.1:1234 -nographic
+    easier to analyse values after the enable paging
 
 Since no graphics is used in a vm; we cannot view the Interrupts messages. Follow the steps
 1. Push to git
