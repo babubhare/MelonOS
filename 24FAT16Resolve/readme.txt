@@ -29,6 +29,7 @@ Open another prompt
     gdb
     target remote tcp:127.0.0.1:1234
     add-symbol-file ./build/kernelfull.o 0x0100000
+    set print pretty on
     break _start
     break kernel_main
     c "continue"
