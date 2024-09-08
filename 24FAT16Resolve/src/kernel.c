@@ -99,5 +99,13 @@ void kernel_main()
 
     char buf[20];
     strcpy(buf, "hello!");
+    struct disk* diskby = disk_get(0);
+
+    if(diskby)
+    {
+        print("Testing");
+    }
+
+
     while(1) {}
 }
