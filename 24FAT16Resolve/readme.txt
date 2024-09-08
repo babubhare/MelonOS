@@ -43,6 +43,7 @@ Open another prompt
     p ($esp + (void *)&intValue1)
     p/x *above address
     info address variable
+    set print pretty on
 
 https://web.mit.edu/gnu/doc/html/gdb_8.html
 
