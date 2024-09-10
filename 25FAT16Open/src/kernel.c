@@ -97,6 +97,13 @@ void kernel_main()
     // Enable the system interrupts
     enable_interrupts();
 
+    struct disk* diskNew = disk_get(0);
+
+    if(diskNew)
+    {
+        print("Disk Read");
+    }
+
     char buf[20];
     strcpy(buf, "hello!");
     while(1) {}
