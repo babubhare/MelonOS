@@ -47,6 +47,7 @@ Open another prompt
     info address variable
     set print pretty on
     dump memory memorydump.bin 0x00 0xffff
+    cp -r memorydump.bin /root/shared
 
 https://web.mit.edu/gnu/doc/html/gdb_8.html
 
