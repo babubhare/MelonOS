@@ -39,6 +39,7 @@ Open another prompt
     cntrl c
     disas 0x0100000, 0x0100fff
     layout asm
+    layout prev
     exit from layout asm CTRL+X, A
     view memory location x/5i 0x7c00
     CTRL + A ; X to exit from qemu
