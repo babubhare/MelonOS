@@ -10,6 +10,13 @@ _start:
     mov eax, 1
     int 0x80
     add esp, 4
+    
+    call getkey
+    push message
+    mov eax, 1
+    int 0x80
+    add esp, 4
+
     jmp $
 
 getkey:
