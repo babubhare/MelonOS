@@ -74,3 +74,4 @@ sudo mkfs.vfat usb.img
 sudo mount -t vfat /mnt/usb.img /mnt/d
 https://www.nixcraft.com/t/how-to-create-exfat-vfat-image-file-on-linux/4406/2
 
+git reset --hard HEAD
