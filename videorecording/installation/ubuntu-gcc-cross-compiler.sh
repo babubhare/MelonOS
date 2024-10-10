@@ -25,8 +25,7 @@ sudo apt-get install texinfo --assume-yes
 sudo apt-get install libisl-dev --assume-yes
 
 export PREFIX="$HOME/opt/cross"
-#export TARGET=i686-elf
-export TARGET=x86_64-elf
+export TARGET=i686-elf
 export PATH="$PREFIX/bin:$PATH"
 
 cd $HOME/src
