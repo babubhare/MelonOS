@@ -1,0 +1,3 @@
+nasm -f bin ./device.asm -o device.bin
+
+qemu-system-x86_64 -hda device.bin -nographic
