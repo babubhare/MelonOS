@@ -16,6 +16,8 @@ start:
 
     mov si, message
     call print
+
+    
     jmp $
 
 print:

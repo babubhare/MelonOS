@@ -1,0 +1,9 @@
+mkdir kernel-tutorials-grub
+cd kernel-tutorials-grub
+
+wget https://alpha.gnu.org/gnu/grub/grub-2.12~rcz
+tar -xzf grub-2.12~rc1.tar.gz
+
+mkdir build
+cd build
+
