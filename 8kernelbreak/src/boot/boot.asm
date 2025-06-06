@@ -20,8 +20,15 @@ step2:
     mov es, ax
     mov ss, ax
     mov sp, 0x7c00
-    sti ; Enables Interrupts
+    
+    
+    ; Enable the A20 line
+    in al, 0x92
+    or al, 2
+    out 0x92, al
 
+    sti ; Enables Interrupts
+    
 .load_protected:
     cli
     lgdt[gdt_descriptor]
