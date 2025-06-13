@@ -1,4 +1,5 @@
 [BITS 32]
+.asm
 
 global _start
 extern kernel_main

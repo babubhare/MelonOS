@@ -25,4 +25,5 @@ Open another prompt
     disas 0x0100000, 0x0100fff
     layout asm
     view memory location x/5i 0x7c00
-    ALT + A ; X to exit fromqemu
+    ALT + A ; X to exit from qemu
+    exit from layout as cntrl x, a
