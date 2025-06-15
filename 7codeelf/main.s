@@ -27,6 +27,12 @@ sum:
 	.section	.rodata
 .LC0:
 	.string	"testing"
+.LC1:
+	.string	"pointer value %p\n"
+.LC2:
+	.string	"value at pointer %d\n"
+.LC3:
+	.string	"address of the pointer %d\n"
 	.text
 	.globl	main
 	.type	main, @function
@@ -41,7 +47,11 @@ main:
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
-	subq	$16, %rsp
+	subq	$32, %rsp
+	.loc 2 5 1
+	movq	%fs:40, %rax
+	movq	%rax, -8(%rbp)
+	xorl	%eax, %eax
 	.loc 2 6 5
 	leaq	.LC0(%rip), %rax
 	movq	%rax, %rdi
@@ -50,10 +60,42 @@ main:
 	.loc 2 7 16
 	movl	$0, %eax
 	call	sum
-	movl	%eax, -4(%rbp)
-	.loc 2 8 12
+	.loc 2 7 9 discriminator 1
+	movl	%eax, -20(%rbp)
+	.loc 2 8 10
+	leaq	-20(%rbp), %rax
+	movq	%rax, -16(%rbp)
+	.loc 2 10 5
+	movq	-16(%rbp), %rax
+	movq	%rax, %rsi
+	leaq	.LC1(%rip), %rax
+	movq	%rax, %rdi
 	movl	$0, %eax
-	.loc 2 9 1
+	call	printf@PLT
+	.loc 2 11 5
+	movq	-16(%rbp), %rax
+	movl	(%rax), %eax
+	movl	%eax, %esi
+	leaq	.LC2(%rip), %rax
+	movq	%rax, %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	.loc 2 12 5
+	movq	-16(%rbp), %rax
+	movl	(%rax), %eax
+	movl	%eax, %esi
+	leaq	.LC3(%rip), %rax
+	movq	%rax, %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	.loc 2 13 12
+	movl	$0, %eax
+	.loc 2 14 1
+	movq	-8(%rbp), %rdx
+	subq	%fs:40, %rdx
+	je	.L5
+	call	__stack_chk_fail@PLT
+.L5:
 	leave
 	.cfi_def_cfa 7, 8
 	ret
@@ -64,13 +106,13 @@ main:
 	.file 3 "/usr/include/stdio.h"
 	.section	.debug_info,"",@progbits
 .Ldebug_info0:
-	.long	0xdd
+	.long	0xf0
 	.value	0x5
 	.byte	0x1
 	.byte	0x8
 	.long	.Ldebug_abbrev0
-	.uleb128 0x2
-	.long	.LASF10
+	.uleb128 0x3
+	.long	.LASF11
 	.byte	0x1d
 	.long	.LASF0
 	.long	.LASF1
@@ -101,7 +143,7 @@ main:
 	.byte	0x2
 	.byte	0x5
 	.long	.LASF7
-	.uleb128 0x3
+	.uleb128 0x4
 	.byte	0x4
 	.byte	0x5
 	.string	"int"
@@ -113,24 +155,23 @@ main:
 	.byte	0x1
 	.byte	0x6
 	.long	.LASF9
-	.uleb128 0x4
-	.long	0x66
 	.uleb128 0x5
-	.byte	0x8
+	.long	0x66
+	.uleb128 0x2
 	.long	0x6d
 	.uleb128 0x6
-	.long	.LASF11
+	.long	.LASF12
 	.byte	0x3
-	.value	0x169
+	.value	0x16b
 	.byte	0xc
 	.long	0x58
-	.long	0x90
+	.long	0x8f
 	.uleb128 0x7
 	.long	0x72
 	.uleb128 0x8
 	.byte	0
 	.uleb128 0x9
-	.long	.LASF12
+	.long	.LASF13
 	.byte	0x2
 	.byte	0x4
 	.byte	0x5
@@ -139,18 +180,29 @@ main:
 	.quad	.LFE1-.LFB1
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0xc2
+	.long	0xd0
 	.uleb128 0xa
-	.long	.LASF13
+	.long	.LASF10
 	.byte	0x2
 	.byte	0x7
 	.byte	0x9
 	.long	0x58
 	.uleb128 0x2
 	.byte	0x91
-	.sleb128 -20
-	.byte	0
+	.sleb128 -36
 	.uleb128 0xb
+	.string	"ptr"
+	.byte	0x2
+	.byte	0x8
+	.byte	0xa
+	.long	0xd0
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 -32
+	.byte	0
+	.uleb128 0x2
+	.long	0x58
+	.uleb128 0xc
 	.string	"sum"
 	.byte	0x1
 	.byte	0x1
@@ -175,6 +227,16 @@ main:
 	.byte	0
 	.byte	0
 	.uleb128 0x2
+	.uleb128 0xf
+	.byte	0
+	.uleb128 0xb
+	.uleb128 0x21
+	.sleb128 8
+	.uleb128 0x49
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x3
 	.uleb128 0x11
 	.byte	0x1
 	.uleb128 0x25
@@ -193,7 +255,7 @@ main:
 	.uleb128 0x17
 	.byte	0
 	.byte	0
-	.uleb128 0x3
+	.uleb128 0x4
 	.uleb128 0x24
 	.byte	0
 	.uleb128 0xb
@@ -204,18 +266,9 @@ main:
 	.uleb128 0x8
 	.byte	0
 	.byte	0
-	.uleb128 0x4
+	.uleb128 0x5
 	.uleb128 0x26
 	.byte	0
-	.uleb128 0x49
-	.uleb128 0x13
-	.byte	0
-	.byte	0
-	.uleb128 0x5
-	.uleb128 0xf
-	.byte	0
-	.uleb128 0xb
-	.uleb128 0xb
 	.uleb128 0x49
 	.uleb128 0x13
 	.byte	0
@@ -300,6 +353,23 @@ main:
 	.byte	0
 	.byte	0
 	.uleb128 0xb
+	.uleb128 0x34
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x39
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x18
+	.byte	0
+	.byte	0
+	.uleb128 0xc
 	.uleb128 0x2e
 	.byte	0
 	.uleb128 0x3f
@@ -351,25 +421,25 @@ main:
 .LASF7:
 	.string	"short int"
 .LASF10:
-	.string	"GNU C17 13.2.0 -mtune=generic -march=x86-64 -g -fasynchronous-unwind-tables -fstack-protector-strong -fstack-clash-protection -fcf-protection"
+	.string	"test"
+.LASF11:
+	.string	"GNU C17 13.3.0 -mtune=generic -march=x86-64 -g -fasynchronous-unwind-tables -fstack-protector-strong -fstack-clash-protection -fcf-protection"
 .LASF4:
 	.string	"unsigned char"
 .LASF8:
 	.string	"long int"
-.LASF12:
-	.string	"main"
 .LASF13:
-	.string	"test"
+	.string	"main"
 .LASF9:
 	.string	"char"
-.LASF11:
+.LASF12:
 	.string	"printf"
 	.section	.debug_line_str,"MS",@progbits,1
 .LASF1:
 	.string	"/root/wf/MelonOS/7codeelf"
 .LASF0:
 	.string	"main.c"
-	.ident	"GCC: (Ubuntu 13.2.0-4ubuntu3) 13.2.0"
+	.ident	"GCC: (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0"
 	.section	.note.GNU-stack,"",@progbits
 	.section	.note.gnu.property,"a"
 	.align 8
