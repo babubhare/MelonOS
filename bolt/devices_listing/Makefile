@@ -58,7 +58,7 @@ isr.o: isr.asm
 
 run: $(OS_IMG)
 	@echo "Starting QEMU..."
-	qemu-system-i386 -drive format=raw,file=$(OS_IMG) -m 16M
+	qemu-system-i386 -drive format=raw,file=$(OS_IMG) -m 16M -nographic
 
 run-debug: $(OS_IMG)
 	@echo "Starting QEMU with debugging..."

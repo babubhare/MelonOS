@@ -6,6 +6,8 @@ void scan_pci_devices(void) {
     
     for (int bus = 0; bus < 256; bus++) {
         for (int device = 0; device < 32; device++) {
+
+
             uint32_t vendor_id = pci_config_read(bus, device, 0, 0);
             
             if ((vendor_id & 0xFFFF) != 0xFFFF) {
@@ -66,9 +68,9 @@ void detect_devices(void) {
 }
 
 // PCI configuration space access
-uint32_t pci_config_read(uint8_t bus, uint8_t device, uint8_t function, uint8_t offset) {
-    uint32_t address = (1 << 31) | (bus << 16) | (device << 11) | (function << 8) | (offset & 0xFC);
+// uint32_t pci_config_read(uint8_t bus, uint8_t device, uint8_t function, uint8_t offset) {
+//     uint32_t address = (1 << 31) | (bus << 16) | (device << 11) | (function << 8) | (offset & 0xFC);
     
-    outl(0xCF8, address);
-    return inl(0xCFC);
-}
+//     outl(0xCF8, address);
+//     return inl(0xCFC);
+// }

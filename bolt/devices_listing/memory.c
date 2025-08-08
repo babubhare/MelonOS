@@ -1,5 +1,5 @@
 #include "kernel.h"
-
+#include "stddef.h"
 // Simple memory management
 static uint32_t memory_start = 0x100000;  // 1MB mark
 static uint32_t memory_end = 0x1000000;   // 16MB (assumed)
@@ -47,7 +47,7 @@ void* kmalloc(uint32_t size) {
         current = current->next;
     }
     
-    return NULL;  // Out of memory
+    return current;  // Out of memory
 }
 
 void kfree(void* ptr) {
