@@ -1,77 +1,123 @@
-CC = gcc
+# OrangeOS Makefile
+# Educational Operating System Build Configuration
+
+# Compiler and tools
+CC = i686-elf-gcc
 AS = nasm
 LD = ld
 
-CFLAGS = -m32 -ffreestanding -fno-stack-protector -fno-builtin -nostdlib -Wall -Wextra
-ASFLAGS = -f elf32
+# Compiler flags
+CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
+         -nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c
+
+#
+
+# Assembler flags
+ASFLAGS = -f bin
+
+# Linker flags
 LDFLAGS = -m elf_i386 -T linker.ld
 
-KERNEL_OBJECTS = kernel.o io.o devices.o interrupts.o memory.o pci.o isr.o
-BOOT_BIN = boot.bin
-KERNEL_BIN = kernel.bin
-OS_IMG = simpleos.img
+# Directories
+BOOT_DIR = boot
+KERNEL_DIR = kernel
+DRIVERS_DIR = drivers
+LIB_DIR = lib
+INCLUDE_DIR = include
+BUILD_DIR = build
 
-all: $(OS_IMG)
+# Source files
+BOOT_SRC = $(BOOT_DIR)/boot.asm
+KERNEL_SOURCES = $(wildcard $(KERNEL_DIR)/*.c)
+DRIVER_SOURCES = $(wildcard $(DRIVERS_DIR)/*.c)
+LIB_SOURCES = $(wildcard $(LIB_DIR)/*.c)
 
-$(OS_IMG): $(BOOT_BIN) $(KERNEL_BIN)
-	@echo "Creating OS image..."
-	dd if=/dev/zero of=$(OS_IMG) bs=512 count=2880 2>/dev/null
-	dd if=$(BOOT_BIN) of=$(OS_IMG) bs=512 count=1 conv=notrunc 2>/dev/null
-	dd if=$(KERNEL_BIN) of=$(OS_IMG) bs=512 seek=1 conv=notrunc 2>/dev/null
-	@echo "OS image created: $(OS_IMG)"
+# Object files
+KERNEL_OBJECTS = $(KERNEL_SOURCES:$(KERNEL_DIR)/%.c=$(BUILD_DIR)/kernel_%.o)
+DRIVER_OBJECTS = $(DRIVER_SOURCES:$(DRIVERS_DIR)/%.c=$(BUILD_DIR)/driver_%.o)
+LIB_OBJECTS = $(LIB_SOURCES:$(LIB_DIR)/%.c=$(BUILD_DIR)/lib_%.o)
 
-$(BOOT_BIN): boot.asm
-	@echo "Assembling bootloader..."
-	$(AS) -f bin boot.asm -o $(BOOT_BIN)
+ALL_OBJECTS = $(KERNEL_OBJECTS) $(DRIVER_OBJECTS) $(LIB_OBJECTS)
 
-$(KERNEL_BIN): $(KERNEL_OBJECTS)
-	@echo "Linking kernel..."
-	$(LD) $(LDFLAGS) -o $(KERNEL_BIN) $(KERNEL_OBJECTS)
+# Output files
+BOOTLOADER = $(BUILD_DIR)/boot.bin
+KERNEL = $(BUILD_DIR)/kernel.bin
+OS_IMAGE = orangeos.img
 
-kernel.o: kernel.c kernel.h
-	@echo "Compiling kernel.c..."
-	$(CC) $(CFLAGS) -c kernel.c -o kernel.o
+# Default target
+all: $(OS_IMAGE)
 
-io.o: io.c kernel.h
-	@echo "Compiling io.c..."
-	$(CC) $(CFLAGS) -c io.c -o io.o
+# Create build directory
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
 
-devices.o: devices.c kernel.h pci.h
-	@echo "Compiling devices.c..."
-	$(CC) $(CFLAGS) -c devices.c -o devices.o
+# Build bootloader
+$(BOOTLOADER): $(BOOT_SRC) | $(BUILD_DIR)
+	$(AS) $(ASFLAGS) $< -o $@
 
-interrupts.o: interrupts.c kernel.h
-	@echo "Compiling interrupts.c..."
-	$(CC) $(CFLAGS) -c interrupts.c -o interrupts.o
+# Build kernel object files
+$(BUILD_DIR)/kernel_%.o: $(KERNEL_DIR)/%.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) $< -o $@
 
-memory.o: memory.c kernel.h
-	@echo "Compiling memory.c..."
-	$(CC) $(CFLAGS) -c memory.c -o memory.o
+# Build driver object files
+$(BUILD_DIR)/driver_%.o: $(DRIVERS_DIR)/%.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) $< -o $@
 
-pci.o: pci.c pci.h kernel.h
-	@echo "Compiling pci.c..."
-	$(CC) $(CFLAGS) -c pci.c -o pci.o
+# Build library object files
+$(BUILD_DIR)/lib_%.o: $(LIB_DIR)/%.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) $< -o $@
 
-isr.o: isr.asm
-	@echo "Assembling interrupt handlers..."
-	$(AS) $(ASFLAGS) isr.asm -o isr.o
+# Link kernel
+$(KERNEL): $(ALL_OBJECTS) linker.ld | $(BUILD_DIR)
+	$(LD) $(LDFLAGS) $(ALL_OBJECTS) -o $@
 
-run: $(OS_IMG)
-	@echo "Starting QEMU..."
-	qemu-system-i386 -drive format=raw,file=$(OS_IMG) -m 16M -nographic
+# Create OS image
+$(OS_IMAGE): $(BOOTLOADER) $(KERNEL)
+	# Create 1.44MB floppy image
+	dd if=/dev/zero of=$@ bs=1024 count=1440
+	# Write bootloader to first sector
+	dd if=$(BOOTLOADER) of=$@ bs=512 count=1 conv=notrunc
+	# Write kernel starting from sector 2
+	dd if=$(KERNEL) of=$@ bs=512 seek=1 conv=notrunc
 
-run-debug: $(OS_IMG)
-	@echo "Starting QEMU with debugging..."
-	qemu-system-i386 -drive format=raw,file=$(OS_IMG) -m 16M -monitor stdio
+# Run in QEMU
+run: $(OS_IMAGE)
+	qemu-system-i386 -fda $(OS_IMAGE) -boot a
 
+# Run in QEMU with debugging
+debug: $(OS_IMAGE)
+	qemu-system-i386 -fda $(OS_IMAGE) -boot a -s -S
+
+# Clean build files
 clean:
-	@echo "Cleaning build files..."
-	rm -f *.o $(BOOT_BIN) $(KERNEL_BIN) $(OS_IMG)
+	rm -rf $(BUILD_DIR)
+	rm -f $(OS_IMAGE)
 
+# Install dependencies (Ubuntu/Debian)
 install-deps:
-	@echo "Install required dependencies:"
-	@echo "Ubuntu/Debian: sudo apt-get install gcc-multilib nasm qemu-system-x86"
-	@echo "Fedora: sudo dnf install gcc.i686 nasm qemu-system-x86"
-	@echo "Arch: sudo pacman -S gcc-multilib nasm qemu"
+	sudo apt-get update
+	sudo apt-get install gcc nasm qemu-system-x86 build-essential
 
-.PHONY: all run run-debug clean install-deps
+# Create linker script if it doesn't exist
+linker.ld:
+	@echo "Creating linker script..."
+	@echo "ENTRY(kernel_main)" > linker.ld
+	@echo "SECTIONS {" >> linker.ld
+	@echo "    . = 0x1000;" >> linker.ld
+	@echo "    .text : { *(.text) }" >> linker.ld
+	@echo "    .data : { *(.data) }" >> linker.ld
+	@echo "    .bss : { *(.bss) }" >> linker.ld
+	@echo "}" >> linker.ld
+
+# Help target
+help:
+	@echo "OrangeOS Build System"
+	@echo "Available targets:"
+	@echo "  all          - Build complete OS image"
+	@echo "  run          - Build and run in QEMU"
+	@echo "  debug        - Build and run in QEMU with debugging"
+	@echo "  clean        - Remove build files"
+	@echo "  install-deps - Install required dependencies"
+	@echo "  help         - Show this help message"
+
+.PHONY: all run debug clean install-deps help

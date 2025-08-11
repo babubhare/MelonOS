@@ -1,0 +1,42 @@
+#include "../include/kernel.h"
+
+// Input byte from port
+uint8_t inb(uint16_t port) {
+    uint8_t result;
+    asm volatile("inb %1, %0" : "=a"(result) : "Nd"(port));
+    return result;
+}
+
+// Output byte to port
+void outb(uint16_t port, uint8_t value) {
+    asm volatile("outb %0, %1" : : "a"(value), "Nd"(port));
+}
+
+// Input word from port
+uint16_t inw(uint16_t port) {
+    uint16_t result;
+    asm volatile("inw %1, %0" : "=a"(result) : "Nd"(port));
+    return result;
+}
+
+// Output word to port
+void outw(uint16_t port, uint16_t value) {
+    asm volatile("outw %0, %1" : : "a"(value), "Nd"(port));
+}
+
+// Input double word from port
+uint32_t inl(uint16_t port) {
+    uint32_t result;
+    asm volatile("inl %1, %0" : "=a"(result) : "Nd"(port));
+    return result;
+}
+
+// Output double word to port
+void outl(uint16_t port, uint32_t value) {
+    asm volatile("outl %0, %1" : : "a"(value), "Nd"(port));
+}
+
+// I/O delay
+void io_wait(void) {
+    outb(0x80, 0);
+}
