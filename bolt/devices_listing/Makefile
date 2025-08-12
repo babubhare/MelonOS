@@ -4,11 +4,12 @@
 # Compiler and tools
 CC = i686-elf-gcc
 AS = nasm
-LD = ld
+LD = i686-elf-ld
 
+CFLAGS = -g -ffreestanding -falign-jumps -falign-functions -falign-labels -falign-loops -fstrength-reduce -fomit-frame-pointer -finline-functions -Wno-unused-function -fno-builtin -Werror -Wno-unused-label -Wno-cpp -Wno-unused-parameter -nostdlib -nostartfiles -nodefaultlibs -Wall -O0 -Iinc -Wno-unused-variable
 # Compiler flags
-CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
-         -nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c
+#CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
+#         -nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c
 
 #
 
@@ -23,7 +24,7 @@ BOOT_DIR = boot
 KERNEL_DIR = kernel
 DRIVERS_DIR = drivers
 LIB_DIR = lib
-INCLUDE_DIR = include
+INCLUDE_DIR = ./include
 BUILD_DIR = build
 
 # Source files
@@ -57,7 +58,7 @@ $(BOOTLOADER): $(BOOT_SRC) | $(BUILD_DIR)
 
 # Build kernel object files
 $(BUILD_DIR)/kernel_%.o: $(KERNEL_DIR)/%.c | $(BUILD_DIR)
-	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) $< -o $@
+	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -std=gnu99 -c $< -o $@
 
 # Build driver object files
 $(BUILD_DIR)/driver_%.o: $(DRIVERS_DIR)/%.c | $(BUILD_DIR)
