@@ -1,0 +1,7 @@
+rm -rf ./boot_charloop.bin 
+nasm -f bin ./boot_charloop.asm -o ./boot_charloop.bin
+qemu-system-x86_64 -hda ./boot_charloop.bin -nographic
+
+to exit from qemu Ctrl + A; X
+
+

@@ -1,0 +1,7 @@
+rm -rf ./boot_segment.bin 
+nasm -f bin ./boot_segment.asm -o ./boot_segment.bin
+qemu-system-x86_64 -hda ./boot_segment.bin -nographic
+
+to exit from qemu Ctrl + A; X
+
+

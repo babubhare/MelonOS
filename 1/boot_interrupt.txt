@@ -1,0 +1,7 @@
+rm -rf ./boot_interrupt.bin 
+nasm -f bin ./boot_interrupt.asm -o ./boot_interrupt.bin
+qemu-system-x86_64 -hda ./boot_interrupt.bin -nographic
+
+to exit from qemu Ctrl + A; X
+
+
