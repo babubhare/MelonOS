@@ -1,0 +1,7 @@
+rm -rf ./boot_char.bin 
+nasm -f bin ./boot_char.asm -o ./boot_char.bin
+qemu-system-x86_64 -hda ./boot_char.bin -nographic
+
+to exit from qemu Ctrl + A; X
+
+

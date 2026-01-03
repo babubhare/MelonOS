@@ -1,0 +1,7 @@
+rm -rf ./boot_bios33.bin 
+nasm -f bin ./boot_bios.asm -o ./boot_bios33.bin
+qemu-system-x86_64 -hda ./boot_bios33.bin -nographic
+
+to exit from qemu Ctrl + A; X
+
+
