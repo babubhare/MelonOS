@@ -52,3 +52,8 @@ make all-gcc
 make all-target-libgcc
 make install-gcc
 make install-target-libgcc
+
+# Check the GCC Version
+$TARGET-gcc --version
+
+
