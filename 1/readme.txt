@@ -1,1 +1,1 @@
-qemu-system-x86_64 -hda ./boot_segment.bin
+qemu-system-x86_64 -hda ./boot_segment.bin -nographic
