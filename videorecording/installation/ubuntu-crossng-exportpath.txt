@@ -1,0 +1,9 @@
+#add followwing in .profile
+
+if [ -d "$HOME/x-tools/arm-unknown-linux-uclibcgnueabihf/bin" ] ; then
+        PATH="$PATH:$HOME/x-tools/arm-unknown-linux-uclibcgnueabihf/bin"        
+fi
+
+if [ -d "$HOME/x-tools/x86_64-unknown-linux-uclibc/bin" ] ; then
+        PATH="$PATH:$HOME/x-tools/x86_64-unknown-linux-uclibc/bin"
+fi
